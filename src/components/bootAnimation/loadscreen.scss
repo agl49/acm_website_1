@@ -1,0 +1,37 @@
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        pointer-events: all; 
+    }
+    75% {
+        opacity: 1;
+        pointer-events: all;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.boot-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    pointer-events: none;
+
+    width: 100vw;
+    height: 100vh;
+    // opacity: 0;
+    -webkit-animation: fadeOut 7s linear forwards;
+    animation: fadeOut 7s linear forwards;
+
+    background-color: black;
+    z-index: 10000;
+}
+

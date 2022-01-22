@@ -1,25 +1,93 @@
-import logo from './logo.svg';
-import './App.css';
+import Test from "./components/test/test.jsx";
+import {Helmet} from "react-helmet";
+import LoadScreen from "./components/bootAnimation/loadscreen.js";
+import SectionTitle from "./components/sectionTitle/sectionTitle.js";
+import SectionText from "./components/sectionText/sectionText.js";
+import Container from "./components/container/container.js";
+import React, { useState, useEffect } from "react";
 
+//importing assets
+import logo from "./images/ACM(transperent).png";
+
+// This version with the loading screen works with what we want to do 
+// but we are not sure if its the best way to implement a static loading
+// screen. Maybe for a projec this small, it's the best way...
+// One modification will to make the gif native as part of the website.
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let introBlurb = {
+        title : "ACM?",
+        text : "This is a long string to test the functionality of this component. Long string this is a long string with no line breaks in the editor. Test test test.\n \
+                Main it sucks writting this by hand, I hope I can figure this out. Now we'll see if the tage works\n\
+                I hope it does. More text. More text. Test jklasdjf ksjdofi jkdjfo kjoifjasdfkljo oiasdfjk oaidfj oisadjf lk oasidjf adsk jnie inco snoe fir jf mcosi fmiejf f\n \
+                sdaf kjfoasdijf lkjdfoaijke kdn cijw fow jijd aoie nnbvu wjkd ociw jdk wofk nkje icnf ownkd fic kasjie jfkc i \n\
+                \n\
+                more text after a space",
+                
+    }
+    
+    return (
+        <div>
+            <LoadScreen></LoadScreen>
+            <Helmet>
+                <style>{"body { background: linear-gradient(#c774e8, #94d0ff) }"}</style>\
+                <style>{"body { background-repeat: no-repeat }"}</style>
+                <style>{"body { background-attachment: fixed }"}</style>
+            </Helmet>
+            
+            <Container>
+                {/* Glitch effect seems to only work for 13 characters */}
+                <SectionTitle titleName="T e x a s S t a t e"/>
+                <SectionTitle titleName="A C M" glitch="true"/>
+                <SectionTitle titleName="C h a p t e r" imagePath={logo}/>
+
+                {/* Testing */}
+                {/* <div>
+                    <p>Random Text</p>
+                    <Test/>
+                </div> */}
+
+                <SectionText title={introBlurb.title} text={introBlurb.text}/>
+
+                <SectionTitle titleName="G a l l a r y"/>      
+
+            </Container> 
+         
+            <Test/>
+        </div>
+    );
 }
+
+
+
+
+
+// function App() {
+//     const [loading, setLoading] = useState(true);
+
+//     useEffect(() => {
+//         setTimeout(() => setLoading(false), 7000)
+//     }, []);
+  
+//     return (
+//         <div>
+//             {loading === false ? (
+//                 <div>
+//                     <Helmet>
+//                         <style>{"body { background: linear-gradient(#c774e8, #94d0ff) }"}</style>\
+//                         <style>{"body { background-repeat: no-repeat }"}</style>
+//                         <style>{"body { background-attachment: fixed }"}</style>
+//                     </Helmet>
+
+//                     <p>Random Text</p>
+          
+         
+//                     <Test/>
+//                 </div>
+//             ) : (
+//                 <LoadScreen></LoadScreen>
+//             ) }
+//         </div>
+//     );
+// }
 
 export default App;
