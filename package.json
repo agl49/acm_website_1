@@ -7,9 +7,11 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "animejs": "^3.2.1",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
+    "react-only-when": "^1.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
@@ -41,6 +43,7 @@
     "@testing-library/dom": "^8.1.0"
   },
   "devDependencies": {
+    "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.37.5"
   }
 }
