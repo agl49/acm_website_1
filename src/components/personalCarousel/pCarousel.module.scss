@@ -1,0 +1,41 @@
+.carouselWrapper {
+    --direction: "rtl";
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    direction: var(--direction);
+}
+
+.styledCarousel {
+    --thisHeight: 100%;
+    height: var(--thisHeight);
+    display: flex;
+    flex-direction: row;
+    width: 100%;  
+    // here
+}
+
+.sliderContainer {
+    overFlow: hidden;
+    position: relative;
+    width: 100%;
+    margin: 0 10px;
+}
+
+.sliderMode {
+    --calcTransResult: unset;
+    --calcLeftResult: unset;
+    --calcRightResult: unset;
+    --calcTopResult: unset;
+
+    transition: val(--calcTransResult);
+    left: val(--calcLeftResult);
+    right: val(--calcRightResult);
+    top: val(--calcTopResult);
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    // some functions here but not sure why
+}

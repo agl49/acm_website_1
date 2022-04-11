@@ -1,0 +1,64 @@
+.imagePart {
+    width: 100%;
+    height: 50%;
+    padding-bottom: 15px;
+}
+
+.modifiedAestheticWindows95Container {
+    border: 1px solid;
+    box-shadow: 1px 1px 0 0 #000;
+    border-top: 1px solid #DFDFDF;
+    border-left: 1px solid #DFDFDF;
+    background-color: #BFBFBF;
+    padding: 4px;
+
+    width: 45%;
+    height: 90%;   
+}
+
+.prevCard {
+    left: calc(0% + 2rem);
+    // opacity: 0;
+}
+
+.activeCard {
+    left: 50%;
+    transform: translateX(-50%);
+    // the card is centered
+    // to itself
+    // instead of the left edge
+    // resting on the center line
+}
+
+.nextCard {
+    left: 100%;
+    transform: translateX(calc(-100% - 2rem));
+    // opacity: 0;
+}
+
+
+.cardContainer {
+    --itemPosition: unset;
+    --paddingToUse: unset;
+    --currentWidth: auto;
+
+    display: flex; //<--hmm
+    overflow: hidden;
+    justify-content: var(--itemPosition);
+    width: var(--currentWidth);
+    padding: var(--paddingToUse);
+    height: 100%;
+}
+
+.cardText {
+    background-color: #fbf1c7;
+    overflow: auto;
+}
+
+.miniTitleBar {
+    border: 1px solid;
+    box-shadow: 1px 1px 0 0 #000;
+    color: #ffff;
+
+    background: #000084;
+}

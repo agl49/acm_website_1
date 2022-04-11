@@ -1,0 +1,20 @@
+.arrowStyle {
+    border: none;
+	background-color: transparent;
+}
+
+.leftArrow {
+    transform: rotate(90deg);
+
+    height: 95px;
+    max-height: 100%;
+    width: 70%;
+}
+
+.rightArrow {
+    transform: rotate(-90deg);
+
+    height: 95px;
+    max-height: 100%;
+    width: 70%;
+}

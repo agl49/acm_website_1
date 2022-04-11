@@ -5,6 +5,8 @@ import SectionTitle from "./components/sectionTitle/sectionTitle.js";
 import SectionText from "./components/sectionText/sectionText.js";
 import Container from "./components/container/container.js";
 import React, { useState, useEffect } from "react";
+import PCarousel from "./components/personalCarousel/pCarousel.js";
+import Logo from "./components/logo/logo.js";
 
 //importing assets
 import logo from "./images/ACM(transperent).png";
@@ -25,6 +27,15 @@ function App() {
                 
     }
     
+    const cardBreakPoints = [
+      { width: 1, itemsToShow: 1},
+      { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+      { width: 850, itemsToShow: 3 },
+      { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
+      { width: 1450, itemsToShow: 5 },
+      { width: 1750, itemsToShow: 6} 
+    ];
+
     return (
         <div>
             <LoadScreen></LoadScreen>
@@ -40,6 +51,10 @@ function App() {
                 <SectionTitle titleName="A C M" glitch="true"/>
                 <SectionTitle titleName="C h a p t e r" imagePath={logo}/>
 
+                {/* Our logo testing area */}
+
+                <Logo/> 
+
                 {/* Testing */}
                 {/* <div>
                     <p>Random Text</p>
@@ -49,6 +64,10 @@ function App() {
                 <SectionText title={introBlurb.title} text={introBlurb.text}/>
 
                 <SectionTitle titleName="G a l l a r y"/>      
+
+                {/* This should take in props to determine breakpoints and such */}
+                {/* Also should pass a lot of other specific parms */}
+                <PCarousel breakPoints={cardBreakPoints}/>
 
             </Container> 
          

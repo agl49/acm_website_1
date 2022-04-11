@@ -1,0 +1,21 @@
+.arrowStyle {
+  border: none;
+  background-color: transparent;
+}
+
+.leftArrow {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  height: 95px;
+  max-height: 100%;
+  width: 70%;
+}
+
+.rightArrow {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  height: 95px;
+  max-height: 100%;
+  width: 70%;
+}
+/*# sourceMappingURL=arrow.module.css.map */

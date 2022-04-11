@@ -6,8 +6,10 @@ import style from "./renderParagraph.module.css";
 
 function RenderParagraph(props) {
   //debugging
-  // console.log("paragraph is type: " + typeof(props.paragraph)); //problem here
-  
+  // console.log("props is: " + JSON.stringify(props));
+  // console.log("paragraph is type: " + typeof(props.paragraph)); 
+  // console.log("props.paragraph: " + props.paragraph) 
+
   const [firstLine, ...rest] = props.paragraph.split("\n");
 
   return(

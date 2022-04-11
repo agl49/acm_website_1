@@ -1,26 +1,28 @@
 //this component is used in pCarousel.js
 import React from "react";
 import propTypes from "prop-types";
+import style from "./arrow.module.css";
 
 //image 
 import trangle from "../../images/triangle-svgrepo-com.svg";
 
 const directionalIcon = {
-    left: "<",
-    right: ">"
+    left: style.leftArrow,
+    right: style.rightArrow
 }
 
+//TODO: We'll add the flip functionality after we test that it shows up. correctly.
+
 function Arrow(props) {
-  const arrows = {...props.icons};
-  
+  const direction = props.direction;
+  const action = props.onClick;
+
   //code to consider which direction the arrow is, this will swap the 
   //css to flip the image when needed. 
 
   return(
-    //He just uses special ascii chars
-    //
-    <button>
-        <img src={trangle} alt="arrow"/>
+    <button onClick={action} className={style.arrowStyle}>
+        <img src={trangle} alt="arrow" className={directionalIcon[direction]}/>
     </button>   
   );
 }
