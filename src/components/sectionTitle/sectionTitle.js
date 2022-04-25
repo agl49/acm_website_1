@@ -1,24 +1,26 @@
 import style from "./sectionTitle.module.css";
 
 function SectionTitle(props) {
-    const glitchEffect = "aesthetic-effect-text-glitch";
-    let effectApplied = "aesthetic-white-color";
+    // "aesthetic-white-color";
+    let effectApplied = props.textStyle;
 
-    //   bool
-    if (props.glitch) {
-        effectApplied = glitchEffect;
-    }
 
-    //debugging
-    // console.log(effectApplied);
+    // Make this also display black titles
 
     if (props.imagePath === undefined) {
         return (
             <div>
-                <h1 className={effectApplied} data-glitch={props.titleName}>
+                <h1 className={effectApplied}>
                     {props.titleName}
                 </h1>
+
+                {/* debugging */}
+                {/* problem still occurs */}
+                {/* <h1 className={effectApplied} data-glitch="L O P E Z">
+                    L O P E Z
+                </h1> */}
             </div>
+            
         );
     }
     else {
@@ -26,10 +28,10 @@ function SectionTitle(props) {
             <div>
                 {/* Problem here with keeping the effect going while centered */}
                 {/* works well while in container, maybe try cool colors now? */}
-                <h1 className={effectApplied} data-glitch={props.titleName}>
+                <h1 className={effectApplied}>
                     {props.titleName}
                 </h1>
-                <img src={props.imagePath} als="ACM" className={style.standardImage} />
+                <img src={props.imagePath} als={props.imageAls} className={style.standardImage} />
             </div>
         );
     }

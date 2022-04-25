@@ -1,1 +1,5 @@
 /* No CSS *//*# sourceMappingURL=App.css.map */
+* {
+    /* This is imported from google fonts */
+    font-family: 'Old Standard TT', serif;
+}

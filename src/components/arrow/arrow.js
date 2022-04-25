@@ -11,7 +11,7 @@ const directionalIcon = {
     right: style.rightArrow
 }
 
-//TODO: We'll add the flip functionality after we test that it shows up. correctly.
+//TODO: Make this actually look like a button that is presed
 
 function Arrow(props) {
   const direction = props.direction;

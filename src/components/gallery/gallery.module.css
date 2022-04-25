@@ -1,0 +1,19 @@
+.projectContainer {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 1rem 1rem;
+  -ms-grid-columns: (minmax(220px, 280px))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+  -ms-grid-rows: (auto)[auto-fit];
+      grid-template-rows: repeat(auto-fit, auto);
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  justify-items: center;
+  -ms-flex-line-pack: space-evenly;
+      align-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=gallery.module.css.map */

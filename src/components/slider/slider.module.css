@@ -10,6 +10,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   overflow: hidden;
+  gap: 30px;
   width: 55rem;
   height: 22rem;
 }

@@ -1,3 +1,9 @@
+//This component is depreciated mainly due to the 
+//comments from this site: https://shouldiuseacarousel.com/
+//Also because I spent too much damn time on it and the complexity
+//of what I was trying to build out weights the benifit I would get
+//from using this component.
+//--------------------------------------------------------------------
 //A lot of the logic for this was extracted from the following:
 //https://github.com/sag1v/react-elastic-carousel
 //Package had too much logic for what we wanted so this is a simplified version.
@@ -7,11 +13,12 @@ import PropTypes from "prop-types";
 import ResizeObserver from "resize-observer-polyfill";
 import Only from "react-only-when";
 import Slider from "../slider/slider.js";
-import data from "./carouselData.js";
+import data from "../data.js";
 import { activeIndexReducer } from "../reducerItems/items";
 import { nextItemAction, prevItemAction } from "../actions/itemsActions";
 import consts from "../constants";
 import styled from "./pCarousel.module.css";
+import Arrow from "../arrow/arrow.js";
 
 //following import for debugging
 import Card from "../card/card.js";
@@ -49,7 +56,7 @@ function onContainerResize(sliderContainerWidth,
 
   const containerWidth = newSliderContainerWidth - outerSpacing * 2;
   
-  //When would this every run?
+  //When would this every run? Should run when the state changes.
   //I don't understand why this will not always run in the original
   //code. It seemed like it would run all the time since it will
   //compare the state to itsel, not the old one. Either I am missing
@@ -125,10 +132,11 @@ function updateSliderPosition(activeIndex,
   //We were at 0ms because we wanted to disable animation on resize
   //see https://github.com/sag1v/react-elastic-carousel/issues/94
   //Issue seems closed...
-  //Hmm lets see if this will work...
-  windows.requestAnimationFrame(() => {
-    setTransitionMs(transitionMs);
-  });
+  //Hmm lets see if this will work... This won't work
+  // window.requestAnimationFrame(() => {
+  //   setTransitionMs(transitionMs);
+  // });
+  setTransitionMs(transitionMs);
   setActiveIndex(newActiveIndex < 0 ? 0 : newActiveIndex);
   setSliderPosition(sliderPosition);
 }
@@ -164,17 +172,26 @@ function getDerivedPropsFromBreakPoint(rest) {
 }
 
 //This needs to pass both props and state and state functions
-//Here
 //Params: nextItemId
 //        childAmount
 //        activeIndex
+//        setSliderPosition
+//        sliderContainerWidth
+//        childAmount
+//        setSliderPosition
 //        rest 
-function goTo(nextItemId, childAmount, activeIndex, rest) {
+function goTo(nextItemId, 
+              childAmount,
+              activeIndex,
+              setSliderPosition,
+              sliderContainerWidth,
+              setActiveIndex,
+              rest) {
   const { itemsToShow } = getDerivedPropsFromBreakPoint(rest);
   const childrenLength = childAmount;
   let safeNextItemId = Math.max(0, nextItemId); // don't allow negative numbers
   const isPrev = activeIndex > safeNextItemId;
-  const nextAvailableItem = getNextItemIndex(activeIndex, isPrev, childAmount, rest); //right? 
+  const nextAvailableItem = getNextItemIndex(activeIndex, isPrev, childAmount, rest); 
   const noChange = nextAvailableItem === activeIndex; //bool
   const outOfBoundary = safeNextItemId + itemsToShow >= childrenLength;
   if (noChange) {
@@ -186,36 +203,48 @@ function goTo(nextItemId, childAmount, activeIndex, rest) {
   }
   let direction = constants.NEXT;
   //                           need to pass stuff in here
-  let positionEndCb = onNextEnd(); //<-- function
+  // let positionEndCb = onNextEnd(activeIndex, childAmount); //Cutting this feature
   if (isPrev) {
     direction = constants.PREV;
-    positionEndCb = onPrevEnd(); // add right props to this
+    // positionEndCb = onPrevEnd(); // add right props to this
   }
-  const stateUpdater = generatePositionUpdater(
-    direction,
-    safeNextItemId,
-    {
-      transitioning: true
-    }
-  ); 
-  //call stateUpdeater?
+  
+  generatePositionUpdater(direction,
+                          safeNextItemId,
+                          {
+                            transitioning: true
+                          },
+                          setSliderPosition,
+                          activeIndex,
+                          setActiveIndex,
+                          sliderContainerWidth,
+                          childAmount,
+                          rest); 
   //state updater needs the needed function to update the state.
-  //then we run
-  pipe(
+  //I don't think we need this.
+  // pipe(
     //why is pipe needed
     //functions not implemented
-    updateActivePage(),
-    onSliderTransitionEnd(positionEndCb)
-  );
+    // updateActivePage(),
+    // onSliderTransitionEnd(positionEndCb)
+  // );
 }
 
-//What does fn mean?
+//What does fn mean? It just means function.
 function onSliderTransitionEnd(fn) {
   //I don't know when this slider property is created
   // in the original. Not sure what exactly it is.
   //slider.addEventListener("transitionend", fn);
+
+  //May be remove...
 }
 
+//Used in goTo
+//Used in pagitation, and we are not including that so remove.
+//Params: activeIndex
+//        childAmount
+// 
+//        rest
 function updateActivePage(props) {
   //this function updates the state
   const { itemsToShow, children } = getDerivedPropsFromBreakPoint(); //pass the right props
@@ -239,36 +268,50 @@ function updateActivePage(props) {
 }
 
 //What exactly does this do?
+//fns -> functions
+//shouldn't return a function since we don't use react classes
+//The reason he uses this I think is because of the setState functions form.
+//Since we use hooks, I don't think we need this.
 function pipe(...fns) {
-  return (x) => fns.reduce((v, f) => f(v), x);
+  return (x) =>       //total currentVal  initalValue
+               fns.reduce((v, f) => f(v), x);
+                           //inner reducer function just calls f on v 
 }
 
+//Params: direction
+//        nextItemId
+//        SliderPosition
+//        setSliderPosition
+//        activeIndex
+//        setActiveIndex
+//        sliderContainerWidth
+//        childAmount
+//        setSliderPostion
+//        rest
 function generatePositionUpdater(direction, 
                                  nextItemId,
+                                 sliderPosition,
+                                 setSliderPosition,
+                                 activeIndex,
+                                 setActiveIndex,
+                                 sliderContainerWidth,
+                                 childAmount,
                                  rest) {
-  //not sure why it is like this
-  (state) => {
-    const { sliderPosition, childHeight, activeIndex } = state;
-    const childWidth = calculateChildWidth(); //<-- function
+  const childWidth = calculateChildWidth(sliderContainerWidth, childAmount, rest); 
     
-    let newSliderPosition = 0;
-    const childSize = childWidth;
-    if (direction === constants.NEXT) {
-      newSliderPosition = 
-        sliderPosition - childSize * (nextItemId - activeIndex);
-    } else {
-      newSliderPosition = 
-        sliderPosition + childSize * (activeIndex - nextItemId);
-    }
+  let newSliderPosition = 0;
+  const childSize = childWidth;
+  if (direction === constants.NEXT) {
+    newSliderPosition = 
+    sliderPosition - childSize * (nextItemId - activeIndex);
+  } else {
+    newSliderPosition = 
+      sliderPosition + childSize * (activeIndex - nextItemId);
+  }
 
-    return {
-      sliderPosition: newSliderPosition,
-      activeIndex: nextItemId,
-      swipedSliderPosition: 0,
-      isSwiping: false,
-      ...rest
-    };
-  };
+  setSliderPosition(newSliderPosition);
+  setActiveIndex(nextItemId);
+  // setSliderPosition(0); <-- why this?
 }
 
 //Params: sliderContainerWidth
@@ -300,6 +343,7 @@ function calculateChildWidth(sliderContainerWidth, childAmount, rest) {
   return childWidth;
 }
 
+//Maybe remove, see onNextEnd
 function onPrevEnd(props) {
   const { onPrevEnd, onChange } = getDerivedPropsFromBreakPoint(); // add props
   const { activeIndex, activePage } = props;
@@ -310,21 +354,35 @@ function onPrevEnd(props) {
   onPrevEnd(nextItemObj, activePage); 
 }
 
-function onNextEnd(props) {
-  //                                                            add the need props here
-  const { onNextEnd, onChange } = getDerivedPropsFromBreakPoint();
-  const { activeIndex, activePage } = props;
-  const nextItemObj = convertChildToCbObj(activeIndex);
-  //do we need this?
-  //removeSliderTransitionHook(onNextEnd);
-  //We don't have this state var created, what is it used for?
-  //props.setTransitioning(false)
-  //onChange is a passed function but what should it do?
-  onChange && onChange(nextItemObj, activePage);
-  onNextEnd(nextItemObj, activePage);
-}
+//called by goTo
+//Hmm, this function main purpose seems ot be executing the
+//possible callbacks that are inserted into the function and I
+//don't think we need to incorporate that so we can cut these 
+//functions. The Og function seem to execute the passed callbeack
+//but the function also seems to be intened to return something but
+//doesn't... Or it does in a way I don't know. Still, it seems to be
+//in the service of doing the callback feature so we don't need to
+//worry about it. Maybe remove
+//Params: activeIndex
+//        childAmount  
+// function onNextEnd(activeIndex, childAmount) {
+//   // This line basically calls callbacks that we don't need.                                                           
+//   // const { onNextEnd, onChange } = getDerivedPropsFromBreakPoint();
+  
+//   const nextItemObj = convertChildToCbObj(activeIndex, childAmount);
+//   //do we need this?
+//   //removeSliderTransitionHook(onNextEnd);
+//   //We don't have this state var created, what is it used for?
+//   //props.setTransitioning(false)
+//   //onChange is a passed function but what should it do?
+//   onChange && onChange(nextItemObj, activePage);
+//   onNextEnd(nextItemObj, activePage);
+// }
 
-function convertChildToCbObj(index) {
+//Params: index,
+//        childAmount
+//PROBLEM: currently no way to do this. Do we need to do this?
+function convertChildToCbObj(index, childAmount) {
   const { children } = getDerivedPropsFromBreakPoint();
   // support decimal itemsToShow
   const roundedIdx = Math.round(index);
@@ -332,8 +390,7 @@ function convertChildToCbObj(index) {
   return { item: child.props, index: roundedIdx };
 }
 
-//TODO, not just here but add back itemsToScroll
-//We were called from goTo
+//We were called from goTo and slidePrev
 //Params: currentIndex
 //        getPrev
 //        childAmount
@@ -348,12 +405,13 @@ function getNextItemIndex(currentIndex, getPrev, childAmount, rest) {
     limit = 0; // basically don't move it 
   }
   const nextAction = getPrev 
-    ? prevItemAction(0, itemsToScroll)                           //imported from itemsActions
+    ? prevItemAction(0, itemsToScroll)                           //imported from other files
     : nextItemAction(limit, itemsToScroll);                      //<-
   const nextItem = activeIndexReducer(currentIndex, nextAction); //<- 
   return nextItem;
 }
 
+//Remove since it is used in pagitation that we are not going to use.
 function getNumOfPages() {
   const { children, itemsToShow } = getDerivedPropsFromBreakPoint(); //add the right props here
   const childrenLength = Children.toArray(children).length;
@@ -378,8 +436,35 @@ function calcRight( {isRTL,
                      isSwiping,
                      swipedSliderPosition,
                      sliderPosition} ) {
+
+  //debugging
+  console.log("we are running calcRight");                    
+
   if (isRTL) {
-    return `${isSwiping ? swipedSliderPosition : sliderPosition}px`;
+    //debugging
+    //Problem this was having is that the following doesn't work:
+    //`${isSwiping ? swipedSliderPosition : sliderPosition}px`
+    //not sure why it worked in the other code. Might be a styled 
+    //component thing.
+    //Actually might just be that we never defined some of the props.
+    console.log("in isRTL");
+    let result = `${isSwiping ? swipedSliderPosition : sliderPosition}px`;
+    console.log("this is what result is " + result);
+
+    result = isSwiping ? swipedSliderPosition : sliderPosition;
+    console.log("new result is " + result);
+    console.log("swipedSliderPosition: " + swipedSliderPosition);
+    console.log(typeof swipedSliderPosition);
+    console.log("sliderPosition: " + sliderPosition);
+    console.log(typeof result);
+    if (result === undefined) {
+      console.log("result === undefined");
+    } else {
+      console.log("result is different from undefined.");
+    }
+    console.log("this is result: " + result);    
+
+    return result + "px";
   } else {
     return "auto";
   }
@@ -400,46 +485,109 @@ function calcTransition( {isSwiping,
   return `all ${duration}ms ${effectiveEasing}`;
 }
 
-function onNextStart(options, otherProps, activeIndex, sliderPosition, setIsSwiped, setSwipedSliderPosition) {
+function onNextStart(options, 
+                     rest,
+                     activeIndex,
+                     sliderPosition,
+                     setIsSwiped,
+                     setSwipedSliderPosition,
+                     childAmount,
+                     getPrev,
+                     sliderContainerWidth,
+                     setActiveIndex) {
   //this is for custom functions to run when clicking the button
-  const { onNextStart } = getDerivedPropsFromBreakPoint(otherProps); //is this implemented right
-  const nextItemObj = getNextItemObj(); //did we implment this?
+  // const { onNextStart } = getDerivedPropsFromBreakPoint(rest); 
+  const nextItemObj = getNextItemObj(childAmount, activeIndex, getPrev, rest); //did we implment this? No we did not.
   const prevItemObj = convertChildToCbObj(activeIndex);
-  onNextStart(prevItemObj, nextItemObj); 
-  slideNext(options, otherProps, activeIndex, sliderPosition, setIsSwiped, setSwipedSliderPosition);
+  // onNextStart(prevItemObj, nextItemObj); 
+  slideNext(options,
+            rest,
+            activeIndex,
+            sliderPosition,
+            setIsSwiped,
+            setSwipedSliderPosition,
+            childAmount,
+            sliderContainerWidth,
+            setActiveIndex);
 }
 
-function slideNext(options = {}, otherProps, activeIndex, sliderPosition, setIsSwiped, setSwipedSliderPosition) {
+function slideNext(options = {},
+                   rest,
+                   activeIndex,
+                   sliderPosition,
+                   setIsSwiped,
+                   setSwipedSliderPosition,
+                   childAmount,
+                   sliderContainerWidth,
+                   setActiveIndex) { //here
   const { skipTilt } = options;
-  const { enableTilt } = getDerivedPropsFromBreakPoint(otherProps);
+  const { enableTilt } = getDerivedPropsFromBreakPoint(rest);
   const nextItem = getNextItemIndex(activeIndex, false);
   if (activeIndex !== nextItem) { 
-    goTo(nextItem); //Add the right params
+    goTo(nextItem, 
+         childAmount,
+         activeIndex,
+         sliderPosition,
+         sliderContainerWidth,
+         setActiveIndex,
+         rest); 
   } else if (enableTilt && !skipTilt) {
     tiltMovement(sliderPosition, 20, 150, setIsSwiped, setSwipedSliderPosition); 
   }
 }
 
-function onPrevStart(options, otherProps, activeIndex, setIsSwiped, setSwipedSliderPosition) {
-  //we going to include this feature?
-  const { onPrevStart } = getDerivedPropsFromBreakPoint(otherProps);
-  const nextItemObject = getNdexItemObj(true);
+function onPrevStart(options,
+                     rest,
+                     activeIndex,
+                     setIsSwiped,
+                     setSwipedSliderPosition,
+                     childAmount,
+                     getPrev,
+                     setActiveIndex,
+                     sliderContainerWidth) {
+  //do we need these two things?
+  const nextItemObject = getNextItemObj(childAmount, activeIndex, getPrev, rest);
   const prevItemObject = convertChildToCbObj(activeIndex);
-  onPrevStart(prevItemObject, nextItemObject);
-  slidePrev(options, setIsSwiped, setSwipedSliderPosition);
+  slidePrev(options, 
+            rest,
+            activeIndex,
+            setIsSwiped,
+            setSwipedSliderPosition,
+            getPrev,
+            childAmount,
+            sliderContainerWidth,
+            setActiveIndex);
 }
 
-function slidePrev(options = {}, otherProps, activeIndex, setIsSwiped, setSwipedSliderPosition) {
+//Might cause problems...
+function getNextItemObj(childAmount, activeIndex, getPrev, rest) {
+  const nextItemIndex = getNextItemIndex(activeIndex, getPrev, childAmount, rest);
+  //supports decimal itemsToShow
+  const roundedIdx = Math.round(nextItemIndex);
+  return roundedIdx;
+}
+
+function slidePrev(options = {}, 
+                   rest,
+                   activeIndex,
+                   setIsSwiped,
+                   setSwipedSliderPosition,
+                   getPrev,
+                   childAmount,
+                   sliderContainerWidth,
+                   setActiveIndex) {
   const { skipTilt } = options;
-  const { enableTilt } = getDerivedPropsFromBreakPoint(otherProps);
-  const prevItem = getNextItemIndex(activeIndex, true);
+  const { enableTilt } = getDerivedPropsFromBreakPoint(rest);
+  const prevItem = getNextItemIndex(activeIndex, getPrev, childAmount, rest);
   if (activeIndex !== prevItem) {
-    goTo(prevItem);
+    // this is missing params...
+    goTo(prevItem, childAmount, activeIndex, setSwipedSliderPosition, sliderContainerWidth, setActiveIndex, rest);
   } else if (enableTilt && !skipTilt) {
     tiltMovement(0, -20, 150, setIsSwiped, setSwipedSliderPosition);
   }
 }
 
+//Hmmm, is this right?
 function tiltMovement(position, distance = 20, duration = 150, setIsSwiped, setSwipedSliderPosition) {
   setIsSwiped(true);
   setSwipedSliderPosition(position - distance);
@@ -457,8 +605,21 @@ function PCarousel(props) {
   const testData = {
       name: "testName",
       img: Webpage, 
-      link: "http://github.com/agl49/techsGiving"
+      link: "http://github.com/agl49/techsGiving",
+      textDescription: "odijfaoijcoidfkldjoicjaoisdjf\n\
+                        jldkjfaldskjfoasidfjlskajdfkl\n\
+                        dsjdkfjalskdjfkldsjflakjksdjf\n\
+                        kjlaskdjflaksjdflkasdjflksjdl\n\
+                        jkldsjaflkdsjflksjflksdjflasd\n\
+                        jalskdjflaksdjflksadjflaksjdf"
   };
+
+  const testStatus = { width: "100%",
+                       paddingStyle: "5px", 
+                       isVisible: "true",
+                       isPrevItem: "false",
+                       isNextItem: "false",
+                       itemPosition: 0 };
 
   const image2 = {
     name: "testName2",
@@ -466,13 +627,10 @@ function PCarousel(props) {
     link: "http://github.com/agl49/"
   };
 
-  const testDescription = "odijfaoijcoidfkldjoicjaoisdjf\n\
-                           jldkjfaldskjfoasidfjlskajdfkl\n\
-                           dsjdkfjalskdjfkldsjflakjksdjf\n\
-                           kjlaskdjflaksjdflkasdjflksjdl\n\
-                           jkldsjaflkdsjflksjflksdjflasd\n\
-                           jalskdjflaksdjflksadjflaksjdf";
+  
   //End of test input
+
+  //here, for now, lets try to get basic functionality to work.
 
   //from https://stackoverflow.com/questions/53254017/react-hooks-and-component-lifecycle-equivalent
   const isFirstUpdate = React.useRef(true); 
@@ -480,7 +638,37 @@ function PCarousel(props) {
 
   //filter out props you don't need here...
   //Problem here with below, if placed after [], call will use wrong item.
+  
+  //debugging
+  console.log("passed in props");
+  console.log(props);
+
   const { initialTransitionMs, initialActiveIndex, ...rest } = props; 
+
+  //debugging
+  console.log("rest has");
+  console.log(rest);
+
+  const {
+    style,
+    itemsToShow,
+    itemsToScroll,
+    isRTL,
+    easing,
+    tiltEasing,
+    // children,      //We have conflicting was of accessing the children components (the cards)
+    // focusOnSelect, //we have our way of creating them, which we saw from the other tutorial,
+    autoTabIndexVisibleItems, //and then there is the children way which is not implemented correctly.
+    itemPosition,             //we only need one way so... 
+    itemPadding,
+    outerSpacing,
+    // showArrows,
+    // disableArrowsOnEnd,
+    onSwiped,
+    enableMouseSwipe,
+    enableSwipe,
+    preventDefaultTouchmoveEvent,
+  } = getDerivedPropsFromBreakPoint(rest); 
 
   //sets initial childrenLength, change this to state?
   const initalChildrenAmount = data.length;
@@ -491,7 +679,7 @@ function PCarousel(props) {
   const [transitionMs, setTransitionMs] = React.useState(initialTransitionMs);
   const [activeIndex, setActiveIndex] = React.useState(initialActiveIndex);
   const [rootHeight, setRootHeight] = React.useState("100%"); //need to set this to be the size
-                                                         //of the card. seems that once the thing
+                                                         //of the container of the card? Seems that once the thing
                                                          //is made, we can call .contentRect on it
   const prevChildrenLength = childAmount;
   const prevSliderContainerWidth = sliderContainerWidth;
@@ -515,6 +703,7 @@ function PCarousel(props) {
                       rest);    
 
     if (prevChildrenLength !== childAmount) {
+      //This right here pointless?
       const {
         itemsToShow: calculateItemsToShow
       } = getDerivedPropsFromBreakPoint(rest);
@@ -522,46 +711,68 @@ function PCarousel(props) {
       // number of items is reduced (we don't care if number of items is increased)
       // we need to check if our current index is not out of boundaries
       // we need to include itemsToShow so we can fill up the slots
-      const lastIndex = currentChildrenLength - 1;
+      const lastIndex = childAmount - 1;
       const isOutOfRange = activeIndex + calculateItemsToShow > lastIndex;
       if (isOutOfRange) {
         // we are out of boundaries, go "back" to last item of the last (respect itemsToShow)
-        goTo(Math.max(0, currentChildrenLength - calculateItemsToShow),
+        goTo(Math.max(0, childAmount - calculateItemsToShow),
              childAmount,
              activeIndex,
+             setSliderPosition,
+             sliderContainerWidth,
+             setActiveIndex,
              rest);
       }
 
       prevSliderContainerWidth = sliderContainerWidth;
       prevChildrenLength = childAmount;
     }
-  }, [breakPoints, childAmount, itemsToScroll, itemsToShow, sliderContainerWidth]);
 
-  const {
-    className,
-    style,
-    itemsToShow,
-    itemsToScroll,
-    isRTL,
-    easing,
-    tiltEasing,
-    children,      //We have conflicting was of accessing the children components (the cards)
-    focusOnSelect, //we have our way of creating them, which we saw from the other tutorial,
-    autoTabIndexVisibleItems, //and then there is the children way which is not implemented correctly.
-    itemPosition,             //we only need one way so... 
-    itemPadding,
-    outerSpacing,
-    showArrows,
-    disableArrowsOnEnd,
-    preventDefaultTouchmoveEvent,
-    renderArrow,
-  } = getDerivedPropsFromBreakPoint(rest); 
+    //Here we do the animations if the state has changed.
+    //We need to cal this right based off of right parms.
+    const itemsToCalValues = { isRTL, 
+                               easing,
+                               sliderPosition,
+                               swipedSliderPosition,
+                               sliderContainerWidth,
+                               activeIndex,
+                               isSwiping: enableSwipe,
+                               transitionMs,
+                               tiltEasing };
 
-  const childWidth = calculateChildWidth(); //pass the right props
-  const numOfPages = getNumOfPages(); //need this? 
+    //Hmm, I think we should move this... Check again what the advantage of this again?
+    //Problem here, possible all other ones of this type are not working as well. Check.
+    //do we need to do these calculations only once? Cause we currently do that
+    //Also, these types only return 0. Make them return something.
+    let trans = calcTransition(itemsToCalValues);
+    let left = calcLeft(itemsToCalValues);
+    let right = calcRight(itemsToCalValues);
+    let top = calcTop(itemsToCalValues);
+
+    //debugging
+    console.log("right after function");
+    console.log(typeof right);
+    console.log("this is right " + right);
+
+    document.documentElement.style.setProperty("--calcTransResult", trans); 
+    document.documentElement.style.setProperty("--calcLeftResult", left);
+    document.documentElement.style.setProperty("--calcRightResult", right);
+    document.documentElement.style.setProperty("--calcTopResult", top);  
+
+    //debugging
+    let cR = getComputedStyle(document.documentElement).getPropertyValue('calcRightResult');
+    console.log(typeof cR);
+    console.log("cR is " + cR); //Something wrong with this string.
+
+
+  }, [breakPoints, childAmount, sliderContainerWidth, sliderPosition, activeIndex]);
+
+
+  const childWidth = calculateChildWidth(sliderContainerWidth, childAmount, rest);
+  // const numOfPages = getNumOfPages(); <-- remove
 
   let body = getComputedStyle(document.body);
-  let dir = string(body.getPropertyValue("--direction"));
+  let dir = toString(body.getPropertyValue("--direction"));
   dir = dir.trim();
 
   if (isRTL !== dir) {
@@ -570,55 +781,58 @@ function PCarousel(props) {
 
   document.documentElement.style.setProperty("--thisHeight", rootHeight);
 
-  const itemsToCalValues = { isRTL,
-                             easing,
-                             sliderPosition,
-                             swipedSliderPosition,
-                             isSwiping,
-                             transitionMs,
-                             tiltEasing };
 
-  document.documentElement.style.setProperty("--calcTransResult", calcTransition(itemsToCalValues)); 
-  document.documentElement.style.setProperty("--calcLeftResult", calcLeft(itemsToCalValues));
-  document.documentElement.style.setProperty("--calcRightResult", calcRight(itemsToCalValues));
-  document.documentElement.style.setProperty("--calcTopResult", calcTop(itemsToCalValues));  
-
-  //Option seems useless and I can't figure out where it is used or set.
-  const leftArrowProps = { options: isSwiping, 
-                           otherProps:  rest,
+  const leftArrowProps = { options: enableSwipe, 
+                           otherProps: rest,
                            activeIndex,
-                           setIsSwiped,
+                           enableSwipe,
+                           sliderPosition,
+                           childAmount,
                            setSwipedSliderPosition };
 
-  const rightArrowProps = { options: isSwiping,
+  const rightArrowProps = { options: enableSwipe,
                             otherProps: rest,
                             activeIndex,
+                            enableSwipe,
                             sliderPosition,
-                            setIsSwiped,
+                            childAmount,
                             setSwipedSliderPosition }
                            
-
   return(
       <div>
-        {/* To determine if we need these, and the function above, we need to do */}
-        {/* a little bit of studying... may needed to implment something like
-            initResizeObserver... maybe not... */}
+        {/* There is a problem with how we formed this. The main idea of the */}
+        {/* sliding mean we need to have a window for the cards to show up in but */}
+        {/* but currently we don't do that. */}
+        
+        {/* test card */}
+        <Card info={testData} cardStatus={testStatus}/>
+
         {/* carouselWrapper */}
         <div className={styled.carouselWrapper}>
           {/*styledCarousel  */}
           {/* the arrow option is here, add it? */}
           <div className={styled.styledCarousel}>
             {/*sliderContainer  */}
+            {/* arrows here */}
+            {/* arrows break one clicked */}
+            {/* arrows need to manipulate the slider */}
+            {/* False is for options/skipTilt, keeps? */}
+            <Arrow direction="left" onClick={() => onPrevStart(false, 
+                                                               rest,
+                                                               activeIndex,
+                                                               setIsSwiped,
+                                                               setSwipedSliderPosition,
+                                                               childAmount,
+                                                               getPrev,
+                                                               setActiveIndex,
+                                                               sliderContainerWidth)}/>
+
             <div className={styled.sliderContainer}>
               {/* slider or sliderMode*/}
               <div className={styled.sliderMode}>
                 {/* out track */}
                 {/* slider component | Need to import more things.*/}
                 <Slider data={data} 
-                        leftArrowFunc={onPrevStart}
-                        leftProps={leftArrowProps}
-                        rightArrowFunc={onNextStart}
-                        rightProps={rightArrowProps}
                         childWidth={childWidth}
                         autoTabIndexVisibleItems={autoTabIndexVisibleItems}
                         enableSwipe={enableSwipe}
@@ -626,15 +840,26 @@ function PCarousel(props) {
                         preventDefaultTouchmoveEvent={preventDefaultTouchmoveEvent}
                         itemsToShow={itemsToShow}
                         itemsToScroll={itemsToScroll}
-                        currentItem={currentItem}
+                        currentItem={activeIndex}
                         itemPosition={itemPosition}
                         itemPadding={itemPadding}
                         onSwiped={onSwiped}
-                        onSwiping={onSwiping}
-                        >
+                  >
                 </Slider>
               </div>
             </div>
+            
+            <Arrow direction="right" onClick={() => onNextStart(false,
+                                                                rest,
+                                                                activeIndex,
+                                                                sliderPosition,
+                                                                setIsSwiped,
+                                                                setSwipedSliderPosition,
+                                                                childAmount,
+                                                                getPrev,
+                                                                sliderContainerWidth,
+                                                                setActiveIndex)}/>
+
           </div>
         </div>    
 
@@ -657,13 +882,16 @@ PCarousel.defaultProps = {
   easing: "easing",
   tiltEasing: "easing",
   preventDefaultTouchmoveEvent: false,
-  focusOnSelect: false,
+  // focusOnSelect: false,
   autoTabIndexVisibleItems: true,
   itemsToShow: 1,
   itemsToScroll: 1,
   itemPosition: constants.CENTER,
   itemPadding: [0, 0, 0, 0],
-  outerSpacing: 0
+  showArrows: true,
+  disableArrowsOnEnd: false,
+  outerSpacing: 0,
+  onSwiped: null
   //Do we need call backs?
 }
 
@@ -674,10 +902,10 @@ PCarousel.defaultProps = {
 PCarousel.propTypes = {
   //Items to render
   //TODO: REMOVE since cards will not be created at time of this props use.
-  children: PropTypes.node.isRequired,
+  // children: PropTypes.node.isRequired,
 
   //The css class for the root element 
-  className: PropTypes.string, //are we going to use this?
+  // className: PropTypes.string, //are we going to use this?
   
   //the style object for the root element
   style: PropTypes.object,
@@ -730,8 +958,8 @@ PCarousel.propTypes = {
 
   //A render prop for the arrow component
   //- ({type, onClick}) => <div onClick={onClick}>{type === 'prev' ? '<-' : '->'}</div>
-  //Not sure what this is
-  renderArrow: PropTypes.func,
+  //Not sure what this is => its for custom arrows
+  // renderArrow: PropTypes.func,
 
   //Position the element relative to it's wrapper (use the consts object) - constants.START | constants.CENTER | constants.END
   itemPosition: PropTypes.oneOf([constants.START, constants.CENTER, constants.END]),
@@ -745,8 +973,7 @@ PCarousel.propTypes = {
   //swipe, enable or disable
   enableSwipe: PropTypes.bool,
 
-  //Enable or disbale mouse swipe
-  enableSwipe: PropTypes.bool,
+  onSwiped: PropTypes.func,
 
   //Prevent page scroll on touchmove
   //Use this to stop the browser from scrolling 

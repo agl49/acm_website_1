@@ -1,7 +1,7 @@
 .imagePart {
     width: 100%;
-    height: 50%;
-    padding-bottom: 15px;
+    height: 190px;
+    padding-bottom: 5px;
 }
 
 .modifiedAestheticWindows95Container {
@@ -11,9 +11,47 @@
     border-left: 1px solid #DFDFDF;
     background-color: #BFBFBF;
     padding: 4px;
+    
+    width: 100%;
+    height: 100%; 
 
-    width: 45%;
-    height: 90%;   
+    position: relative;
+    // height: 75%
+    // height: 200px; //change to rem  
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+}
+
+.cardText {
+    background-color: #fbf1c7;
+    overflow: auto;
+    
+}
+
+.miniTitleBar {
+    border: 1px solid;
+    box-shadow: 1px 1px 0 0 #000;
+    color: #ffff;
+
+    background: #000084;
+}
+
+//depreciated
+//------------------------------
+
+.cardContainer {
+    --itemPosition: unset;
+    --paddingToUse: unset;
+    --currentWidth: auto;
+
+    display: flex; //<--hmm
+    overflow: hidden;
+    justify-content: var(--itemPosition);
+    width: var(--currentWidth);
+    padding: var(--paddingToUse);
+    height: 100%;
 }
 
 .prevCard {
@@ -37,28 +75,3 @@
 }
 
 
-.cardContainer {
-    --itemPosition: unset;
-    --paddingToUse: unset;
-    --currentWidth: auto;
-
-    display: flex; //<--hmm
-    overflow: hidden;
-    justify-content: var(--itemPosition);
-    width: var(--currentWidth);
-    padding: var(--paddingToUse);
-    height: 100%;
-}
-
-.cardText {
-    background-color: #fbf1c7;
-    overflow: auto;
-}
-
-.miniTitleBar {
-    border: 1px solid;
-    box-shadow: 1px 1px 0 0 #000;
-    color: #ffff;
-
-    background: #000084;
-}

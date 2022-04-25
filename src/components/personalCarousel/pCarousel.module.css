@@ -1,0 +1,57 @@
+.carouselWrapper {
+  --direction: "rtl";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 400px;
+  direction: var(--direction);
+}
+
+.styledCarousel {
+  --thisHeight: 100%;
+  height: var(--thisHeight);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 80%;
+}
+
+.sliderContainer {
+  overFlow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 10px;
+}
+
+.sliderMode {
+  --calcTransResult: unset;
+  --calcLeftResult: unset;
+  --calcRightResult: unset;
+  --calcTopResult: unset;
+  -webkit-transition: val(--calcTransResult);
+  transition: val(--calcTransResult);
+  left: val(--calcLeftResult);
+  right: val(--calcRightResult);
+  top: val(--calcTopResult);
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+/*# sourceMappingURL=pCarousel.module.css.map */

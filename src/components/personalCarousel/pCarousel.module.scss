@@ -5,6 +5,9 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    // This was the problem for it not showing up.
+    //Keep?
+    height: 400px; 
     direction: var(--direction);
 }
 
@@ -13,8 +16,7 @@
     height: var(--thisHeight);
     display: flex;
     flex-direction: row;
-    width: 100%;  
-    // here
+    width: 80%; //change this. 
 }
 
 .sliderContainer {
@@ -30,7 +32,10 @@
     --calcRightResult: unset;
     --calcTopResult: unset;
 
-    transition: val(--calcTransResult);
+    // I think this is what we have to move to move the 
+    // cards
+
+    transition: val(--calcTransResult); //doing this right?
     left: val(--calcLeftResult);
     right: val(--calcRightResult);
     top: val(--calcTopResult);

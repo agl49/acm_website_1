@@ -1,15 +1,20 @@
-import Webpage from "../../images/webpage.png";
-import Pathfinder from "../../images/pathFinding.png";
-import SimpleGame from "../../images/simpleGame.png";
-import ConnectFour from "../../images/connectFourGame.png";
-import thisWebpage from "../../images/webpage.png";
+import Webpage from "../images/webpage.png";
+import Pathfinder from "../images/pathFinding.png";
+import SimpleGame from "../images/simpleGame.png";
+import ConnectFour from "../images/connectFourGame.png";
+import thisWebpage from "../images/currentStateOfProject.png";
 
 const data = [
     {
         name: "Search Demonstrator",
         img: Pathfinder,
         link: "https://github.com/agl49/searchAlgs",
-        textDescription: "our long striojoij\n"
+        textDescription: "our long striojoij\n\
+                          jlskdfjsodfijsodkfj\n\
+                          lksdjflkdsjflaskdj\n\
+                          klsdjaflaksdjflkasj\n\
+                          jlksdajflkasdjflkslkdjf\n\
+                          lksdjflsajflkfj\n"
     },
     {
         name: "Top Down Shooter",
