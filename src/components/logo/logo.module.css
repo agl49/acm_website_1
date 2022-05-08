@@ -14,7 +14,7 @@
 .redlineOne {
   fill: none;
   stroke: #FFFFF4;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: arcs;
   stroke-dasharray: 80 180;

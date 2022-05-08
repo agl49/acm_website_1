@@ -9,6 +9,10 @@ import Gallery from "./components/gallery/gallery.js";
 import data from "./components/data.js";
 import Logo from "./components/logo/logo.js";
 import "./App.css";
+import SectionList from "./components/sectionList/sectionList.js";
+import EmailForm from "./components/emailForm/emailForm.js";
+import NavBar from "./components/navBar/navBar.js";
+import FaniLogo from "./components/logo/faniconLogoGen.js";
 
 //importing assets
 import logo from "./images/ACM(transperent).png";
@@ -26,10 +30,12 @@ function App() {
                 sdaf kjfoasdijf lkjdfoaijke kdn cijw fow jijd aoie nnbvu wjkd ociw jdk wofk nkje icnf ownkd fic kasjie jfkc i \n\
                 more text after a space\n\
                 we are adding more text to see if it grows properly\n\
-                kjdflasjdlfkjslkjflkjflkjsdfljlkjfdjfsjldfjkksldjflksdjflkjdsfk\n\
-                sjdklfjlksdjflksdjflksdjflkajlfjlksdfjljfkjflkdjfllkdjflsj",
+                kjdflasjdl fkjslkjfl kjflkjsdfljlk jfdjfsjldfjkksldjfl ksdjflkjdsfk\n\
+                sjdklfjl ksdjflksdjflksdjflkajl fjlksdfjlj fkjflkdjfllkdjflsj",
                 
     }
+
+    const mySkills = ["Frontend", "Backend", "GameDev", "Ai and Machine learning"];
 
     return (
         <div>
@@ -43,6 +49,8 @@ function App() {
             <Container>
                 <Logo/> 
                 
+                <FaniLogo/>
+
                 {/* Glitch effect seems to only work for 13 characters */}
                 <SectionTitle titleName="A D R I A N" textStyle="aesthetic-black-color"/>
                 <SectionTitle titleName="L O P E Z" textStyle="aesthetic-black-color"/>
@@ -50,14 +58,23 @@ function App() {
 
                 <SectionText title={introBlurb.title} text={introBlurb.text}/>
 
-                <SectionTitle titleName="G a l l a r y"/>      
+                <SectionTitle titleName="I N T R E S T S"/>
+
+                <SectionList titleName="Items" skills={mySkills}/>
+
+                <SectionTitle titleName="P R O J E C T S"/>      
 
                 <Gallery projects={data}/>
 
+                <SectionTitle titleName="C O N T A C T"/>  
+
+                {/* Testing this part */}
+                <EmailForm/>
+
+                <NavBar/>   
 
             </Container> 
          
-            <Test/>
         </div>
     );
 }

@@ -1,0 +1,40 @@
+.vrtContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.skills {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: auto;
+}
+
+.lineBreak {
+  height: auto;
+  width: auto;
+  margin: 1%;
+}
+
+.responsiveGif {
+  width: auto;
+  height: 100%;
+}
+
+.iframeCss {
+  max-width: 100%;
+  width: 480px;
+  height: 270px;
+  margin: 0;
+}
+/*# sourceMappingURL=sectionList.module.css.map */

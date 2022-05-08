@@ -1,0 +1,95 @@
+.vrtContainer {
+    display: flex;
+}
+
+.skills {
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    width: auto;
+    
+}
+
+.lineBreak {
+    height: auto;
+    width: auto;
+    // border: 0;
+    margin: 1%;
+    // float: left;
+
+}
+
+.responsiveGif {
+    width: auto;
+    height: 100%;
+    // padding-bottom: 100%;
+    // position: relative;
+}
+
+.iframeCss {
+    // position: absolute;
+    max-width: 100%; 
+    width: 480px;
+    height: 270px;
+    margin: 0;
+}
+
+// <iframe src="https://giphy.com/embed/YbS3KkZSFGUkB4XO1X" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/endless-tunnel-animatedgif-YbS3KkZSFGUkB4XO1X">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/vc0vReKfhmsYSzS9ua" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/perfect-loops-vc0vReKfhmsYSzS9ua">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/THut4Lktwdgz5p1TbD" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/microsoft-windows-95-THut4Lktwdgz5p1TbD">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/MQTF1uW0GTZoVsseXx" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animated-gif-mograph-animation-MQTF1uW0GTZoVsseXx">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/QvMybzkScTcqHJiZx0" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/data-lines-trails-QvMybzkScTcqHJiZx0">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/apXXWPioVOUtPVpPmM" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/lesenfantsterr-apXXWPioVOUtPVpPmM">via GIPHY</a></p>
+
+//<iframe src="https://giphy.com/embed/3ohhwJlKHGchQUtvBS" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-animated-3ohhwJlKHGchQUtvBS">via GIPHY</a></p>
+// <iframe src="https://giphy.com/embed/l3q2Cy90VMhfoA9BC" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/art-black-blue-l3q2Cy90VMhfoA9BC">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/xTiTnxpQ3ghPiB2Hp6" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-animated-gif-xTiTnxpQ3ghPiB2Hp6">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/7b8jdNUoFBdcoILjjv" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/motion-graphics-animated-gif-mograph-7b8jdNUoFBdcoILjjv">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/3o85xC8sdW7vmG6bRe" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loop-looping-3o85xC8sdW7vmG6bRe">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/U4ExkAvRpVQGB0NMe0" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-3d-cgi-U4ExkAvRpVQGB0NMe0">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/lbcLMX9B6sTsGjUmS3" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/blue-technology-data-lbcLMX9B6sTsGjUmS3">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/eVSqI3mZYfaDIXYsnS" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/motion-graphics-animated-gif-mograph-eVSqI3mZYfaDIXYsnS">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/26FPOFusQUOKpnXTG" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loop-animatedgif-26FPOFusQUOKpnXTG">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/1oF1KAEYvmXBMo6uTS" width="480" height="239" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-tech-1oF1KAEYvmXBMo6uTS">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/UQ25FULQkgfwALbzpR" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loop-internet-traffic-data-speed-UQ25FULQkgfwALbzpR">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/QpVUMRUJGokfqXyfa1" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/one-numbers-binary-code-QpVUMRUJGokfqXyfa1">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/sRFEa8lbeC7zbcIZZR" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animated-gif-animation-sRFEa8lbeC7zbcIZZR">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/l3q2XB76CaWPggiNW" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/internet-computer-colorful-l3q2XB76CaWPggiNW">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/l41YvpiA9uMWw5AMU" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/technology-data-transfer-optical-fiber-l41YvpiA9uMWw5AMU">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/xT4uQF7h39mlsF5czK" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-tech-motion-graphics-xT4uQF7h39mlsF5czK">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/AEzxJYSBlDbfW" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-motion-random-AEzxJYSBlDbfW">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/B9xA6CAKrXjeU" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-loop-motion-graphics-B9xA6CAKrXjeU">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/l0OWhLikgS4sOha7e" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/3d-blue-pyramids-l0OWhLikgS4sOha7e">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/8P4SOF8D1tZfOzNAPu" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/abstract-motion-graphics-after-effects-8P4SOF8D1tZfOzNAPu">via GIPHY</a></p>
+
+
+//gifs that don't work
+
+// <iframe src="https://giphy.com/embed/iuXaJKoTb4GpGGXV9r" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/80s-retro-nft-iuXaJKoTb4GpGGXV9r">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/3ov9jYoTG9pyIuG2wE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/art-90s-fashion-3ov9jYoTG9pyIuG2wE">via GIPHY</a></p>
+//<iframe src="https://giphy.com/embed/4H3Ii5eLChYul9p7NL" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/stardust-stardustae-classic-computers-4H3Ii5eLChYul9p7NL">via GIPHY</a></p>
+
+// <div style="width:100%;
+//             height:0;
+//             padding-bottom:100%;
+//             position:relative;">
+//
+//   <iframe src="https://giphy.com/embed/2tTiCSfEEP5QS5TjGr" 
+//           width="100%"
+//           height="100%"
+//           style="position:absolute"
+//           frameBorder="0"
+//           class="giphy-embed" 
+//           allowFullScreen>
+//   </iframe>
+//  </div>
+
+//<iframe src="https://giphy.com/embed/2tTiCSfEEP5QS5TjGr" 
+//        width="480"
+//        height="480"
+//        frameBorder="0"
+//        class="giphy-embed"
+//        allowFullScreen>
+//</iframe>
+

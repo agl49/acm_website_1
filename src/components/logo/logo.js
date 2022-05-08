@@ -13,8 +13,9 @@ function Logo(props) {
     return(
         <div className={style.logoContainer}>            
             
-            {/* org height = 120 width = 300 */}
-            <svg height="150" width="400" viewBox="0 5 300 120" >
+            {/* org height = 120 width = 300 viewBox=0 5 300 120 */}
+            {/* Change height and width to change size */}
+            <svg height="180" width="500" viewBox="0 5 300 120" >
                 
                 <defs>
                     <linearGradient id="grad">
