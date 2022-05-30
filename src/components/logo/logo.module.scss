@@ -30,6 +30,29 @@
     padding-bottom: 20px;
 }
 
+.faniconVersion {
+    fill: none;
+    // stroke: url(#grad);
+    stroke: #FFFFF4;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-linejoin: arcs;
+    // filter: blur(1px);
+
+    // orignally 450
+    stroke-dasharray: 80 180;    
+
+    // animation: draw 3s ease 2s infinite forwards; 
+    animation-name: draw;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+
+    padding-bottom: 20px;
+}
+
 .glowyContainer {
 
     position: absolute; 

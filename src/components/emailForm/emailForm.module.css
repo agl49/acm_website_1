@@ -47,4 +47,9 @@
   height: 14em;
   max-height: 100%;
 }
+
+.statusVisability {
+  --messageVisability: collapse;
+  visibility: hidden;
+}
 /*# sourceMappingURL=emailForm.module.css.map */

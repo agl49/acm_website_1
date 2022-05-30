@@ -11,13 +11,19 @@ function FaniLogo(props) {
                    L 110, 90
                    L 190, 90
                    Z
-          " className={style.redlineOne}/>
+          " className={style.faniconVersion}/>
+
+          <path d="M 150, 36
+                   L 126, 78
+                   L 174, 78
+                   Z
+          " className={style.faniconVersion}/>
 
           <path d="M 150, 52
                    L 142, 66
                    L 158, 66
                    Z
-          " className={style.redlineOne}/>
+          " className={style.faniconVersion}/>
 
       </svg>
     </div>

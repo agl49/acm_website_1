@@ -48,8 +48,6 @@ function App() {
             
             <Container>
                 <Logo/> 
-                
-                <FaniLogo/>
 
                 {/* Glitch effect seems to only work for 13 characters */}
                 <SectionTitle titleName="A D R I A N" textStyle="aesthetic-black-color"/>

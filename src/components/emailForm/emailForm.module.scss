@@ -4,6 +4,8 @@
     align-items: center;
 
     padding-bottom: 10px;
+
+
 }
 
 .containerFormatting {
@@ -36,6 +38,10 @@
     max-height: 100%;
 }
 
+.statusVisability {
+    --messageVisability: collapse;
+    visibility: hidden; 
+}
 
 
 

@@ -33,6 +33,28 @@
   padding-bottom: 20px;
 }
 
+.faniconVersion {
+  fill: none;
+  stroke: #FFFFF4;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: arcs;
+  stroke-dasharray: 80 180;
+  -webkit-animation-name: draw;
+          animation-name: draw;
+  -webkit-animation-duration: 10s;
+          animation-duration: 10s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+  padding-bottom: 20px;
+}
+
 .glowyContainer {
   position: absolute;
   width: 5vw;
