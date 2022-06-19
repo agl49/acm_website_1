@@ -1,18 +1,11 @@
-import style from "./container.module.css";
+import style from './container.module.css'
 
-
-function Container(props) {
-    
+function Container (props) {
   return (
-      <div className={`${style.container} ${"aesthetic-windows-95-container"}`}>
-          {props.children}
-      </div>
-  );
+    <div className={`${style.container} ${'aesthetic-windows-95-container'}`}>
+      {props.children}
+    </div>
+  )
 }
 
-export default Container;
-
-
-
-
-
+export default Container

@@ -1,19 +1,17 @@
-import Card from "../card/card.js";
-import style from "./gallery.module.css";
+import Card from '../card/card.js'
+import style from './gallery.module.css'
 
-function Gallery({ projects }) {
+function Gallery ({ projects }) {
+  return (
+    <div className={style.projectContainer}>
 
-  return(    
-    <div className={style.projectContainer}> 
-
-      {projects.map( (project, index) => {
-          return <Card info={project} index={index}/>
-      })} 
+      {projects.map((project, index) => {
+        return <Card info={project} index={index} />
+      })}
 
     </div>
-    
-  );
+
+  )
 }
 
-
-export default Gallery;
+export default Gallery

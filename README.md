@@ -1,21 +1,36 @@
-We will re-write this/add to it later
+![websiteLook](./src/images/website.png)
 
-# Getting Started with Create React App
+# TL;DR
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is my own personal website. It's my first attempt
+at a react based website. It was mostly meant to be a project
+to help me learn about the technology. Feel free to offer feeback
+or look at the code.
+
+Take a look at the website [here]().
 
 ## Design choice and dependencies
 
-I think we are going to go with create-react-app since for this inital 
-version of the website, it'll only be single page be simple, aside from
-cool animations. Plus, docs for using Arwes have not been written and I don't
-feel like figuring it out.
+I used a number of resources for the desgin and creation of
+this website.
 
-Note: this may need a major redsign.
+| Topic | Resource |
+|-------|-----------|
+| CSS Theme | [aesthetic-css](https://torch2424.github.io/aesthetic-css/#elementsButton) |
+| Framework | react.js |
+| Email client | [email.js](https://www.emailjs.com/) |
+| Linter | [standardjs](https://standardjs.com/#usage) |
+| Host | |
+| Package manager | [Yarn](https://yarnpkg.com/) | 
 
-Scss design inspired by https://torch2424.github.io/aesthetic-css/#elementsButton
+## Who am I?
 
-## Available Scripts
+Just a junior developer...
+
+
+## Available Scripts To Run Locally
+
+First clone the project gather the dependencies.
 
 In the project directory, you can run:
 
@@ -44,18 +59,3 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more
 information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This
- command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, 
-etc) right into your project so you have full control over them. All of the commands except `eject` will 
-still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your 
-own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, 
-and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be 
-useful if you couldn’t customize it when you are ready for it.

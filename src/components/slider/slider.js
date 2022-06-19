@@ -1,142 +1,149 @@
-import Card from "../card/card.js";
+import Card from '../card/card.js'
 // import Arrow from "../arrow/arrow.js";
-import propTypes from "prop-types";
+import propTypes from 'prop-types'
 // import { Swipeable } from "react-swipeable";
-import style from "./slider.module.css";
-import {useState} from "react";
+import style from './slider.module.css'
+import { useState } from 'react'
 
-//Here
-//there is a problem with this or the order in which it does things.
-function Slider({ data, 
-                  childWidth,
-                  autoTabIndexVisibleItems,
-                  enableSwipe,
-                  enableMouseSwipe,
-                  preventDefaultTouchmoveEvent,
-                  itemsToShow,
-                  itemsToScroll,
-                  currentItem,
-                  itemPosition,
-                  itemPadding,
-                  onSwiped}) {
-  const width = `${childWidth}px`;
-  const paddingStyle = `${itemPadding.join("px ")}px`;
-  const minVisableItem = currentItem;
-  const maxVisableItem = currentItem + itemsToShow;
-  const prevItem = minVisableItem - itemsToScroll;
-  const nextItem = maxVisableItem + itemsToScroll;
-  
-  //need to transfer the props item.
-  
+// Here
+// there is a problem with this or the order in which it does things.
+function Slider ({
+  data,
+  childWidth,
+  autoTabIndexVisibleItems,
+  enableSwipe,
+  enableMouseSwipe,
+  preventDefaultTouchmoveEvent,
+  itemsToShow,
+  itemsToScroll,
+  currentItem,
+  itemPosition,
+  itemPadding,
+  onSwiped
+}) {
+  const width = `${childWidth}px`
+  const paddingStyle = `${itemPadding.join('px ')}px`
+  const minVisableItem = currentItem
+  const maxVisableItem = currentItem + itemsToShow
+  const prevItem = minVisableItem - itemsToScroll
+  const nextItem = maxVisableItem + itemsToScroll
+
+  // need to transfer the props item.
 
   if (enableSwipe) {
     return (
-      // This usage of swipeable is depreciated it seems.
-      // you need to implment it in the current way to work.
-      // <Swipeable
-      //   style={{
-      //     display: "flex",
-      //     flexDirection: "row"
-      //   }}
-      //   stopPropagation
-      //   preventDefaultTouchmoveEvent={preventDefaultTouchmoveEvent}
-      //   trackMouse={enableMouseSwipe}
-      //   onSwiped={onSwiped}
-      //   className={style.cardContainer}
-      // >
-        <div className={style.cardContainer}> 
-            {/* <Arrow direction="left" onClick={leftAction}/> */}
-  
-          
-            {data.map( (project, index) => {
-              const isVisible = index >= minVisableItem && index < maxVisableItem;
-              const isPrevItem = !isVisible && index >= prevItem && index < currentItem; 
-              const isNextItem = !isVisible && index < nextItem && index > currentItem; 
-              
-              let tabIndex = null;
-              let compiledAttributes = null;   
-  
-              if (autoTabIndexVisibleItems) {
-                tabIndex = isVisible ? 0 : 1; //What is this used for?
-  
-                compiledAttributes = { width,
-                                       paddingStyle,
-                                       isVisible,
-                                       isPrevItem,
-                                       isNextItem,
-                                       tabIndex,
-                                       itemPosition };
-              } else {
-                compiledAttributes = { width,
-                                       paddingStyle, 
-                                       isVisible,
-                                       isPrevItem,
-                                       isNextItem,
-                                       itemPosition };
-              }  
-              
-              //Next is to edit card
-              return <Card info={project} cardStatus={compiledAttributes} />
-            })} 
-  
-            {/* <Arrow direction="right" onClick={rightAction}/> */}
-        </div>
-      // </Swipeable>
-    );
-  } else {
-    return (
-      <div className={style.cardContainer}> 
+    // This usage of swipeable is depreciated it seems.
+    // you need to implment it in the current way to work.
+    // <Swipeable
+    //   style={{
+    //     display: "flex",
+    //     flexDirection: "row"
+    //   }}
+    //   stopPropagation
+    //   preventDefaultTouchmoveEvent={preventDefaultTouchmoveEvent}
+    //   trackMouse={enableMouseSwipe}
+    //   onSwiped={onSwiped}
+    //   className={style.cardContainer}
+    // >
+      <div className={style.cardContainer}>
         {/* <Arrow direction="left" onClick={leftAction}/> */}
-  
-        {data.map( (project, index) => {
-              const isVisible = index >= minVisableItem && index < maxVisableItem;
-              const isPrevItem = !isVisible && index >= prevItem && index < currentItem; 
-              const isNextItem = !isVisible && index < nextItem && index > currentItem; 
-              
-              let tabIndex = null;
-              let compiledAttributes = null;   
-  
-              if (autoTabIndexVisibleItems) {
-                tabIndex = isVisible ? 0 : 1; //What is this used for?
-  
-                compiledAttributes = { width,
-                                       paddingStyle,
-                                       isVisible,
-                                       isPrevItem,
-                                       isNextItem,
-                                       tabIndex,
-                                       itemPosition };
-              } else {
-                compiledAttributes = { width,
-                                       paddingStyle, 
-                                       isVisible,
-                                       isPrevItem,
-                                       isNextItem,
-                                       itemPosition };
-              }  
-              
-              //Next is to edit card
-              return <Card info={project} cardStatus={compiledAttributes} />
-            })} 
-  
+
+        {data.map((project, index) => {
+          const isVisible = index >= minVisableItem && index < maxVisableItem
+          const isPrevItem = !isVisible && index >= prevItem && index < currentItem
+          const isNextItem = !isVisible && index < nextItem && index > currentItem
+
+          let tabIndex = null
+          let compiledAttributes = null
+
+          if (autoTabIndexVisibleItems) {
+            tabIndex = isVisible ? 0 : 1 // What is this used for?
+
+            compiledAttributes = {
+              width,
+              paddingStyle,
+              isVisible,
+              isPrevItem,
+              isNextItem,
+              tabIndex,
+              itemPosition
+            }
+          } else {
+            compiledAttributes = {
+              width,
+              paddingStyle,
+              isVisible,
+              isPrevItem,
+              isNextItem,
+              itemPosition
+            }
+          }
+
+          // Next is to edit card
+          return <Card info={project} cardStatus={compiledAttributes} />
+        })}
+
         {/* <Arrow direction="right" onClick={rightAction}/> */}
       </div>
-    );
+    // </Swipeable>
+    )
+  } else {
+    return (
+      <div className={style.cardContainer}>
+        {/* <Arrow direction="left" onClick={leftAction}/> */}
+
+        {data.map((project, index) => {
+          const isVisible = index >= minVisableItem && index < maxVisableItem
+          const isPrevItem = !isVisible && index >= prevItem && index < currentItem
+          const isNextItem = !isVisible && index < nextItem && index > currentItem
+
+          let tabIndex = null
+          let compiledAttributes = null
+
+          if (autoTabIndexVisibleItems) {
+            tabIndex = isVisible ? 0 : 1 // What is this used for?
+
+            compiledAttributes = {
+              width,
+              paddingStyle,
+              isVisible,
+              isPrevItem,
+              isNextItem,
+              tabIndex,
+              itemPosition
+            }
+          } else {
+            compiledAttributes = {
+              width,
+              paddingStyle,
+              isVisible,
+              isPrevItem,
+              isNextItem,
+              itemPosition
+            }
+          }
+
+          // Next is to edit card
+          return <Card info={project} cardStatus={compiledAttributes} />
+        })}
+
+        {/* <Arrow direction="right" onClick={rightAction}/> */}
+      </div>
+    )
   }
-     
 }
 
-//debugging
+// debugging
 // function Slider() {
 //   return "f";
 // }
 
-export default Slider;
+export default Slider
 
 /*
 This is what we had before that was causing the problem.
 
-function Slider({ data, 
+function Slider({ data,
                   leftAction,
                   leftProps,
                   rightAction,
@@ -158,7 +165,7 @@ function Slider({ data,
   const maxVisableItem = currentItem + itemsToShow;
   const prevItem = minVisableItem - itemsToScroll;
   const nextItem = maxVisableItem + itemsToScroll;
-  
+
   //need to transfer the props item.
   let toRender = enableSwipe ? (
     <Swipeable
@@ -172,17 +179,16 @@ function Slider({ data,
       onSwiped={onSwiped}
       className={style.cardContainer}
     >
-      <div className={style.cardContainer}> 
+      <div className={style.cardContainer}>
           <Arrow direction="left" onClick={leftAction}/>
 
-        
           {data.map( (project, index) => {
             const isVisible = index >= minVisableItem && index < maxVisableItem;
-            const isPrevItem = !isVisible && index >= prevItem && index < currentItem; 
-            const isNextItem = !isVisible && index < nextItem && index > currentItem; 
-            
+            const isPrevItem = !isVisible && index >= prevItem && index < currentItem;
+            const isNextItem = !isVisible && index < nextItem && index > currentItem;
+
             let tabIndex = null;
-            let compiledAttributes = null;   
+            let compiledAttributes = null;
 
             if (autoTabIndexVisibleItems) {
               tabIndex = isVisible ? 0 : 1; //What is this used for?
@@ -196,31 +202,31 @@ function Slider({ data,
                                      itemPosition };
             } else {
               compiledAttributes = { width,
-                                     paddingStyle, 
+                                     paddingStyle,
                                      isVisible,
                                      isPrevItem,
                                      isNextItem,
                                      itemPosition };
-            }  
-            
+            }
+
             //Next is to edit card
             return <Card info={project} cardStatus={compiledAttributes} />
-          })} 
+          })}
 
           <Arrow direction="right" onClick={rightAction}/>
       </div>
     </Swipeable>
   ) : (
-    <div className={style.cardContainer}> 
+    <div className={style.cardContainer}>
       <Arrow direction="left" onClick={leftAction}/>
 
       {data.map( (project, index) => {
             const isVisible = index >= minVisableItem && index < maxVisableItem;
-            const isPrevItem = !isVisible && index >= prevItem && index < currentItem; 
-            const isNextItem = !isVisible && index < nextItem && index > currentItem; 
-            
+            const isPrevItem = !isVisible && index >= prevItem && index < currentItem;
+            const isNextItem = !isVisible && index < nextItem && index > currentItem;
+
             let tabIndex = null;
-            let compiledAttributes = null;   
+            let compiledAttributes = null;
 
             if (autoTabIndexVisibleItems) {
               tabIndex = isVisible ? 0 : 1; //What is this used for?
@@ -234,35 +240,33 @@ function Slider({ data,
                                      itemPosition };
             } else {
               compiledAttributes = { width,
-                                     paddingStyle, 
+                                     paddingStyle,
                                      isVisible,
                                      isPrevItem,
                                      isNextItem,
                                      itemPosition };
-            }  
-            
+            }
+
             //Next is to edit card
             return <Card info={project} cardStatus={compiledAttributes} />
-          })} 
+          })}
 
       <Arrow direction="right" onClick={rightAction}/>
     </div>
   );
 
   //debugging
-  console.log(typeof toRender); 
+  console.log(typeof toRender);
 
   return toRender;
 }
 */
-
 
 /*
 This is the original from the git we are learning from.
 
 import propTypes from "prop-types";
 import { Swipeable } from "react-swipeable";
-
 
 function Track(props) {
   const width = props.childWidth;
@@ -287,15 +291,15 @@ function Track(props) {
             tabIndex: isVisable ? 0 : -1
           })
         : child;
-      
+
       return (
         // form of the child
         <div>
             <div>
                 {childToRender}
             </div>
-        </div>  
-      );  
+        </div>
+      );
 
   });
 
@@ -332,7 +336,3 @@ Track.propTypes = {
 
 export default Track;
 */
-
-
-
-
