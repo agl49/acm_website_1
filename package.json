@@ -1,6 +1,7 @@
 {
   "name": "acm_website_1",
   "version": "0.1.0",
+  "homepage": "https://agl49.github.io",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^3.6.2",
@@ -19,6 +20,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +49,7 @@
     "@testing-library/dom": "^8.1.0"
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.37.5"
   }
