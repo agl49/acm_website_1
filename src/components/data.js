@@ -40,7 +40,7 @@ const data = [
   {
     name: 'TechsGiving Website',
     img: Webpage,
-    link: 'https://github.com/agl49/techsGiving',
+    link: 'https://github.com/agl49/techsGivingArchive',
     textDescription: 'This was a static website I \n\
                           put together to advertise an \n\
                           event that failed to materialize.\n\
