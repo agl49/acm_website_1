@@ -20,6 +20,9 @@ import Test from './components/test/test.jsx'
 // but we are not sure if its the best way to implement a static loading
 // screen. Maybe for a projec this small, it's the best way...
 // One modification will to make the gif native as part of the website.
+
+//Check out https://robbowen.digital/wrote-about/css-blend-mode-shaders/?utm_source=tldrnewsletter
+
 function App () {
   const introBlurb = {
     title: 'About Me',
