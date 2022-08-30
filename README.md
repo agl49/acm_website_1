@@ -1,5 +1,7 @@
 ![websiteLook](./src/images/website.png)
 
+# This project and the info on the website is depreciated
+
 # TL;DR
 
 This is my own personal website. It's my first attempt
